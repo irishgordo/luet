@@ -19,15 +19,15 @@ import (
 
 	//"strconv"
 
-	"crypto/sha256"
-	"fmt"
+//	"crypto/sha256"
+//	"fmt"
 	"hash"
-	"io"
-	"os"
-	"sort"
+//	"io"
+//	"os"
+//	"sort"
 
 	//	. "github.com/mudler/luet/pkg/logger"
-	"github.com/pkg/errors"
+//	"github.com/pkg/errors"
 )
 
 type HashImplementation string
@@ -44,48 +44,50 @@ type HashOptions struct {
 }
 
 func (c Checksums) List() (res [][]string) {
-	keys := make([]string, 0)
-	for k := range c {
-		keys = append(keys, k)
-	}
-	sort.Strings(keys)
-	for _, k := range keys {
-		res = append(res, []string{k, c[k]})
-	}
+//	keys := make([]string, 0)
+//	for k := range c {
+//		keys = append(keys, k)
+//	}
+//	sort.Strings(keys)
+//	for _, k := range keys {
+//		res = append(res, []string{k, c[k]})
+//	}
 	return
 }
 
 // Generate generates all Checksums supported for the artifact
 func (c *Checksums) Generate(a *PackageArtifact) error {
-	return c.generateSHA256(a)
+	//return c.generateSHA256(a)
+        return nil
 }
 
 func (c Checksums) Compare(d Checksums) error {
-	for t, sum := range d {
-		if v, ok := c[t]; ok && v != sum {
-			return errors.New("Checksum mismsatch")
-		}
-	}
+//	for t, sum := range d {
+//		if v, ok := c[t]; ok && v != sum {
+//			return errors.New("Checksum mismsatch")
+//		}
+//	}
 	return nil
 }
 
 func (c *Checksums) generateSHA256(a *PackageArtifact) error {
-	return c.generateSum(a, HashOptions{Hasher: sha256.New(), Type: SHA256})
+	//return c.generateSum(a, HashOptions{Hasher: sha256.New(), Type: SHA256})
+        return nil
 }
 
 func (c *Checksums) generateSum(a *PackageArtifact, opts HashOptions) error {
 
-	f, err := os.Open(a.Path)
-	if err != nil {
-		return err
-	}
-	defer f.Close()
-	if _, err := io.Copy(opts.Hasher, f); err != nil {
-		return err
-	}
+	//f, err := os.Open(a.Path)
+	//if err != nil {
+	//	return err
+	//}
+	//defer f.Close()
+	//if _, err := io.Copy(opts.Hasher, f); err != nil {
+	//	return err
+	//}
 
-	sum := fmt.Sprintf("%x", opts.Hasher.Sum(nil))
+	//sum := fmt.Sprintf("%x", opts.Hasher.Sum(nil))
 
-	(*c)[string(opts.Type)] = sum
+	//(*c)[string(opts.Type)] = sum
 	return nil
 }
